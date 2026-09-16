@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SpendWise - Smart Expense Tracker</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            SpendWise
+        </div>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="#">About</a>
+            <a href="#">Features</a>
+            <a href="#">Contact</a>
+        </div>
+
+        <div class="nav-buttons">
+            <a href="/login" class="login-btn">Login</a>
+            <a href="/register" class="register-btn">Register</a>
+        </div>
+
+    </nav>
+
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <h1>
+                Take Control of Your
+                <span>Money</span>
+            </h1>
+
+            <p>
+                Track your income, manage your expenses,
+                and understand your spending habits
+                with SpendWise.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#" class="primary-btn">
+                    Get Started
+                </a>
+
+                <a href="#" class="secondary-btn">
+                    Learn More
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-card">
+
+            <h3>Monthly Overview</h3>
+
+            <p>Total Balance</p>
+
+            <h2>₹25,000</h2>
+
+            <div class="card-row">
+
+                <div>
+                    <small>Income</small>
+                    <strong>₹40,000</strong>
+                </div>
+
+                <div>
+                    <small>Expenses</small>
+                    <strong>₹15,000</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <footer>
+
+        <p>
+            © 2026 SpendWise. All Rights Reserved.
+        </p>
+
+    </footer>
+
+</body>
+</html>

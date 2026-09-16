@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SpendWise - Dashboard</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header class="dashboard-header">
+
+        <div class="logo">SpendWise</div>
+
+        <a href="/logout">Logout</a>
+
+    </header>
+
+    <main class="dashboard-container">
+
+        <h1>Welcome to your Dashboard</h1>
+
+        <p>Manage your income and expenses easily.</p>
+
+        <section class="summary-cards">
+
+            <div class="summary-card">
+                <h3>Total Balance</h3>
+                <h2>₹0</h2>
+            </div>
+        
+            <div class="summary-card">
+                <h3>Total Income</h3>
+                <h2>₹0</h2>
+            </div>
+        
+            <div class="summary-card">
+                <h3>Total Expense</h3>
+                <h2>₹0</h2>
+            </div>
+        
+        </section>
+
+    </main>
+
+</body>
+
+</html>

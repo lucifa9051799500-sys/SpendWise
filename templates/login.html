@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SpendWise - Login</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="login">
+
+        <header>
+            <h1>Welcome Back</h1>
+            <p>Login to your SpendWise account</p>
+        </header>
+
+        <main>
+
+            <form action="/login" method="POST">
+
+                <label for="email">Email Address</label><br>
+                <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    required
+                ><br><br>
+
+                <label for="password">Password</label><br>
+                <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    required
+                ><br><br>
+
+                <div class="login-options">
+
+                    <div>
+                        <input
+                            type="checkbox"
+                            name="remember"
+                            id="remember"
+                        >
+
+                        <label for="remember">Remember me</label>
+                    </div>
+
+                    <a href="#">Forgot password?</a>
+
+                </div>
+
+                <button type="submit">Login</button>
+
+            </form>
+
+            <p>
+                Don't have an account?
+                <a href="/register">Register here</a>
+            </p>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>
