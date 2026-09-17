@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Expense - SpendWise</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>Add Expense</h1>
+
+        <form action="/add-expense" method="POST">
+
+            <label for="title">Expense Title</label>
+
+            <input
+                type="text"
+                id="title"
+                name="title"
+                placeholder="e.g. Food, Travel"
+                required
+            >
+
+            <label for="amount">Amount</label>
+
+            <input
+                type="number"
+                id="amount"
+                name="amount"
+                step="0.01"
+                min="0"
+                placeholder="Enter amount"
+                required
+            >
+
+            <label for="category">Category</label>
+
+            <select id="category" name="category" required>
+                <option value="">Select Category</option>
+                <option value="Food">Food</option>
+                <option value="Travel">Travel</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Bills">Bills</option>
+                <option value="Education">Education</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label for="expense_date">Date</label>
+
+            <input
+                type="date"
+                id="expense_date"
+                name="expense_date"
+                required
+            >
+
+            <button type="submit">Save Expense</button>
+
+        </form>
+
+        <br>
+
+        <a href="/dashboard">Back to Dashboard</a>
+
+    </div>
+
+</body>
+</html>
