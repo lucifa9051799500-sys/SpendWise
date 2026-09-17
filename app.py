@@ -18,6 +18,7 @@ def init_db():
     conn = get_db_connection()
     cursor = conn.cursor()
 
+    # Users table
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS users (
             id SERIAL PRIMARY KEY,
@@ -27,7 +28,21 @@ def init_db():
         )
     """)
 
+    # Expenses table
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS expenses (
+            id SERIAL PRIMARY KEY,
+            user_id INTEGER NOT NULL,
+            title TEXT NOT NULL,
+            amount REAL NOT NULL,
+            category TEXT NOT NULL,
+            expense_date DATE NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+
     conn.commit()
+
     cursor.close()
     conn.close()
 
@@ -50,10 +65,10 @@ def register():
 
         hashed_password = generate_password_hash(password)
 
-        try:
-            conn = get_db_connection()
-            cursor = conn.cursor()
+        conn = get_db_connection()
+        cursor = conn.cursor()
 
+        try:
             cursor.execute(
                 """
                 INSERT INTO users (name, email, password)
@@ -63,13 +78,17 @@ def register():
             )
 
             conn.commit()
-            cursor.close()
-            conn.close()
-
-            return redirect("/login")
 
         except psycopg2.IntegrityError:
+            conn.rollback()
+            cursor.close()
+            conn.close()
             return "This email is already registered!"
+
+        cursor.close()
+        conn.close()
+
+        return redirect("/login")
 
     return render_template("register.html")
 
@@ -84,7 +103,10 @@ def login():
         cursor = conn.cursor()
 
         cursor.execute(
-            "SELECT * FROM users WHERE email = %s",
+            """
+            SELECT * FROM users
+            WHERE email = %s
+            """,
             (email,)
         )
 
@@ -121,7 +143,9 @@ def logout():
     return redirect("/login")
 
 
+# Initialize database
 init_db()
+
 
 if __name__ == "__main__":
     app.run(debug=True)
