@@ -41,6 +41,18 @@ def init_db():
         )
     """)
 
+    # Incomes table
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS incomes (
+            id SERIAL PRIMARY KEY,
+            user_id INTEGER NOT NULL,
+            title TEXT NOT NULL,
+            amount REAL NOT NULL,
+            income_date DATE NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+
     conn.commit()
 
     cursor.close()
@@ -135,6 +147,82 @@ def dashboard():
         "dashboard.html",
         user_name=session["user_name"]
     )
+
+
+@app.route("/add-expense", methods=["GET", "POST"])
+def add_expense():
+    if "user_id" not in session:
+        return redirect("/login")
+
+    if request.method == "POST":
+        title = request.form["title"]
+        amount = request.form["amount"]
+        category = request.form["category"]
+        expense_date = request.form["expense_date"]
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        cursor.execute(
+            """
+            INSERT INTO expenses
+            (user_id, title, amount, category, expense_date)
+            VALUES (%s, %s, %s, %s, %s)
+            """,
+            (
+                session["user_id"],
+                title,
+                amount,
+                category,
+                expense_date
+            )
+        )
+
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+
+        return redirect("/dashboard")
+
+    return render_template("add_expense.html")
+
+
+@app.route("/add-income", methods=["GET", "POST"])
+def add_income():
+    if "user_id" not in session:
+        return redirect("/login")
+
+    if request.method == "POST":
+        title = request.form["title"]
+        amount = request.form["amount"]
+        income_date = request.form["income_date"]
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        cursor.execute(
+            """
+            INSERT INTO incomes
+            (user_id, title, amount, income_date)
+            VALUES (%s, %s, %s, %s)
+            """,
+            (
+                session["user_id"],
+                title,
+                amount,
+                income_date
+            )
+        )
+
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+
+        return redirect("/dashboard")
+
+    return render_template("add_income.html")
 
 
 @app.route("/logout")
