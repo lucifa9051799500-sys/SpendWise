@@ -261,6 +261,30 @@ def add_income():
     return render_template("add_income.html")
 
 
+@app.route("/clear-income")
+def clear_income():
+    if "user_id" not in session:
+        return redirect("/login")
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        DELETE FROM incomes
+        WHERE user_id = %s
+        """,
+        (session["user_id"],)
+    )
+
+    conn.commit()
+
+    cursor.close()
+    conn.close()
+
+    return redirect("/dashboard")
+
+
 @app.route("/logout")
 def logout():
     session.clear()
