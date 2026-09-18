@@ -143,9 +143,45 @@ def dashboard():
     if "user_id" not in session:
         return redirect("/login")
 
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    # Calculate total income
+    cursor.execute(
+        """
+        SELECT COALESCE(SUM(amount), 0)
+        FROM incomes
+        WHERE user_id = %s
+        """,
+        (session["user_id"],)
+    )
+
+    total_income = cursor.fetchone()[0]
+
+    # Calculate total expense
+    cursor.execute(
+        """
+        SELECT COALESCE(SUM(amount), 0)
+        FROM expenses
+        WHERE user_id = %s
+        """,
+        (session["user_id"],)
+    )
+
+    total_expense = cursor.fetchone()[0]
+
+    # Calculate balance
+    balance = total_income - total_expense
+
+    cursor.close()
+    conn.close()
+
     return render_template(
         "dashboard.html",
-        user_name=session["user_name"]
+        user_name=session["user_name"],
+        total_income=total_income,
+        total_expense=total_expense,
+        balance=balance
     )
 
 

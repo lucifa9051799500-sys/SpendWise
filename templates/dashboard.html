@@ -35,19 +35,19 @@
 
             <div class="dashboard-card">
                 <h3>Total Income</h3>
-                <p>₹0.00</p>
+                <p>₹{{ "%.2f"|format(total_income|float) }}</p>
             </div>
-
+        
             <div class="dashboard-card">
                 <h3>Total Expense</h3>
-                <p>₹0.00</p>
+                <p>₹{{ "%.2f"|format(total_expense|float) }}</p>
             </div>
-
+        
             <div class="dashboard-card">
                 <h3>Balance</h3>
-                <p>₹0.00</p>
+                <p>₹{{ "%.2f"|format(balance|float) }}</p>
             </div>
-
+        
         </div>
 
         <div class="dashboard-actions">
